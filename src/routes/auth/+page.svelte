@@ -20,7 +20,7 @@
 
 	let loaded = false;
 
-	let mode = $config?.features.enable_ldap ? 'ldap' : 'signin';
+	let mode = $config?.features?.enable_ldap ? 'ldap' : 'signin';
 
 	let name = '';
 	let email = '';

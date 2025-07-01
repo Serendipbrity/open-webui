@@ -13,6 +13,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.webui_secret_key
+.env
+.env.local
+*.key
+*.pem
+config/secrets.json
+
 # C extensions
 *.so
 
