@@ -1,3 +1,4 @@
+<!-------- This file is a reusable toggle "Switch" ------->
 <script lang="ts">
 	import { createEventDispatcher, tick } from 'svelte';
 	import { Switch } from 'bits-ui';

@@ -1,3 +1,4 @@
+<!------ This file creates the "follow up" options to send after each chat. can prob delete  ----->
 <script lang="ts">
 	import ArrowTurnDownRight from '$lib/components/icons/ArrowTurnDownRight.svelte';
 	import { onMount, tick, getContext } from 'svelte';
