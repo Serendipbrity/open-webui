@@ -32,7 +32,7 @@
 
 	import Name from './Name.svelte';
 	import ProfileImage from './ProfileImage.svelte';
-	import Skeleton from './Skeleton.svelte';
+	import TypingAnimation from '../Messages/TypingAnimations.svelte';
 	import Image from '$lib/components/common/Image.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
 	import RateComment from './RateComment.svelte';
@@ -788,7 +788,21 @@
 						{:else}
 							<div class="w-full flex flex-col relative" id="response-content-container">
 								{#if message.content === '' && !message.error && (message?.statusHistory ?? [...(message?.status ? [message?.status] : [])]).length === 0}
-									<Skeleton />
+									<div class="typing-animation-container">
+										<div>
+											<!-- Mock chat message container -->
+											<div>
+												<div class="text-and-bubbles flex items-end gap-2">
+													<div class="bubble-title">Bodhi</div>
+													<div
+														class="bubble-container bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-bl-[1px]"
+													>
+														<TypingAnimation variant="dots" size="md" showContainer={false} />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 								{:else if message.content && message.error !== true}
 									<!-- always show message contents even if there's an error -->
 									<!-- unless message.error === true which is legacy error handling, where the error message is stored in message.content -->
@@ -859,7 +873,6 @@
 						{/if}
 					</div>
 				</div>
-
 				{#if !edit}
 					<div
 						bind:this={buttonsContainerElement}
