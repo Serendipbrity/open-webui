@@ -1,3 +1,4 @@
+<!------------- Chat interface container. Mounts, handles model selection, message flow and real time communication ---------->
 <script lang="ts">
 	import { v4 as uuidv4 } from 'uuid';
 	import { toast } from 'svelte-sonner';

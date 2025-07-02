@@ -1,3 +1,4 @@
+<!-- The original loading animation - can prob delete. (or keep in case we want to go back later) -->
 <script lang="ts">
 	export let size = 'md';
 </script>

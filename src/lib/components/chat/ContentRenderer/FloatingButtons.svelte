@@ -1,3 +1,4 @@
+<!-------- This file provides floating buttons for text select quick actions ⚙️ Tools that appear when users highlight or select text within chat messages -------->
 <script lang="ts">
 	import { toast } from 'svelte-sonner';
 
@@ -327,7 +328,7 @@
 			>
 				<div class=" max-h-80 overflow-y-auto w-full markdown-prose-xs" id="response-container">
 					{#if responseContent.trim() === ''}
-						<Skeleton size="sm" />
+						<Skeleton size="sm" /> <!--can prob replace this with typinganimations.svelte -->
 					{:else}
 						<Markdown id={`${id}-float-response`} content={responseContent} />
 					{/if}

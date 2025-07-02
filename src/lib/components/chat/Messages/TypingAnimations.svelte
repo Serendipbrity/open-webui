@@ -1,4 +1,4 @@
-<!-- AdvancedTypingAnimation.svelte -->
+<!------ This file creates the texting typing animation when loading Bodhi responses  ----------->
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 

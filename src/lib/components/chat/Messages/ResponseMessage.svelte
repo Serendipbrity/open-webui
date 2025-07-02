@@ -1,3 +1,4 @@
+<!------------ This file is the responsible for rendering and displaying Bodhi Responses ---------->
 <script lang="ts">
 	import { toast } from 'svelte-sonner';
 	import dayjs from 'dayjs';

@@ -1,3 +1,4 @@
+<!---------- This file Merges responses from multiple models ------------------>
 <script lang="ts">
 	import dayjs from 'dayjs';
 	import { onMount, tick, getContext } from 'svelte';
@@ -15,7 +16,7 @@
 
 	import Markdown from './Markdown.svelte';
 	import Name from './Name.svelte';
-	import Skeleton from './Skeleton.svelte';
+	import TypingAnimation from '../Messages/TypingAnimations.svelte';
 	import localizedFormat from 'dayjs/plugin/localizedFormat';
 	const i18n = getContext('i18n');
 	dayjs.extend(localizedFormat);
@@ -307,7 +308,20 @@
 
 								<div class="mt-1 markdown-prose w-full min-w-full">
 									{#if (message?.content ?? '') === ''}
-										<Skeleton />
+										<div class="typing-animation-container">
+											<div>
+												<div>
+													<div class="text-and-bubbles flex items-end gap-2">
+														<div class="bubble-title">Bodhi</div>
+														<div
+															class="bubble-container bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-bl-[1px]"
+														>
+															<TypingAnimation variant="dots" size="md" showContainer={false} />
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									{:else}
 										<Markdown id={`merged`} content={message.content ?? ''} />
 									{/if}
