@@ -3,8 +3,19 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "$SCRIPT_DIR" || exit
 
+# Load environment variables from .env file if it exists
+if [ -f ".env" ]; then
+    echo "Loading environment variables from .env file..."
+    export $(grep -v '^#' .env | xargs)
+fi
+
+# Helper for lowercase comparison
+tolower() {
+    echo "$1" | tr '[:upper:]' '[:lower:]'
+}
+
 # Add conditional Playwright browser installation
-if [[ "${WEB_LOADER_ENGINE,,}" == "playwright" ]]; then
+if [[ "$(tolower "$WEB_LOADER_ENGINE")" == "playwright" ]]; then
     if [[ -z "${PLAYWRIGHT_WS_URL}" ]]; then
         echo "Installing Playwright browsers..."
         playwright install chromium
@@ -35,12 +46,12 @@ if test "$WEBUI_SECRET_KEY $WEBUI_JWT_SECRET_KEY" = " "; then
   WEBUI_SECRET_KEY=$(cat "$KEY_FILE")
 fi
 
-if [[ "${USE_OLLAMA_DOCKER,,}" == "true" ]]; then
+if [[ "$(tolower "$USE_OLLAMA_DOCKER")" == "true" ]]; then
     echo "USE_OLLAMA is set to true, starting ollama serve."
     ollama serve &
 fi
 
-if [[ "${USE_CUDA_DOCKER,,}" == "true" ]]; then
+if [[ "$(tolower "$USE_CUDA_DOCKER")" == "true" ]]; then
   echo "CUDA is enabled, appending LD_LIBRARY_PATH to include torch/cudnn & cublas libraries."
   export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib/python3.11/site-packages/torch/lib:/usr/local/lib/python3.11/site-packages/nvidia/cudnn/lib"
 fi
@@ -69,6 +80,12 @@ if [ -n "$SPACE_ID" ]; then
   export WEBUI_URL=${SPACE_HOST}
 fi
 
-PYTHON_CMD=$(command -v python3 || command -v python)
+# Use the virtual environment from the main Bodhi project
+if [ -f "../../venv/bin/activate" ]; then
+    source ../../venv/bin/activate
+    PYTHON_CMD="python"
+else
+    PYTHON_CMD=$(command -v python3 || command -v python)
+fi
 
 WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec "$PYTHON_CMD" -m uvicorn open_webui.main:app --host "$HOST" --port "$PORT" --forwarded-allow-ips '*' --workers "${UVICORN_WORKERS:-1}"
