@@ -607,6 +607,10 @@
 
 		await tick();
 
+		// Ensure the splash animation has enough time to finish before the splash screen is removed
+		// The animation lasts roughly 1.6 s (0.5 s delay + 1.1 s duration). We wait 2s for safety.
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+
 		if (
 			document.documentElement.classList.contains('her') &&
 			document.getElementById('progress-bar')

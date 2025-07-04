@@ -72,47 +72,6 @@
 					}
 				}
 			});
-
-			function setSplashImage() {
-				const logo = document.getElementById('logo');
-				// Wait for animation completion with proper timing
-				function waitForBodhaiAnimation() {
-					return new Promise((resolve) => {
-						// Animation: 2s delay + 0.8s duration + 0.4s buffer = 1s
-						setTimeout(resolve, 1200);
-					});
-				}
-
-				// Modify existing splash screen logic
-				async function initializeApp() {
-					// Ensure fonts are loaded
-					await document.fonts.ready;
-
-					// Wait for Bodhai animation to complete
-					await waitForBodhaiAnimation();
-
-					// Now safe to proceed with app loading
-					removeSplashScreen();
-				}
-				// const isDarkMode = document.documentElement.classList.contains('dark');
-
-				// if (isDarkMode) {
-				// 	const darkImage = new Image();
-				// 	darkImage.src = '/static/splash-dark.png';
-
-				// 	darkImage.onload = () => {
-				// 		logo.src = '/static/splash-dark.png';
-				// 		logo.style.filter = ''; // Ensure no inversion is applied if splash-dark.png exists
-				// 	};
-
-				// 	darkImage.onerror = () => {
-				// 		logo.style.filter = 'invert(1)'; // Invert image if splash-dark.png is missing
-				// 	};
-				// }
-			}
-
-			// Runs after classes are assigned
-			window.onload = setSplashImage;
 		})();
 	</script>
 
@@ -192,10 +151,10 @@
 					></div> -->
 		<!-- </div> -->
 	</div>
-
+<!-- 
 	<span style="position: absolute; bottom: 32px; left: 50%; margin: -36px 0 0 -36px">
 		Footer content
-	</span>
+	</span> -->
 	</div>
 </body>
 
