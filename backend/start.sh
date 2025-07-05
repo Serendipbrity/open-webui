@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# This script starts the Open WebUI backend (FastAPI) only.
+# It loads backend-specific environment variables, including model defaults (DEFAULT_MODELS, ENABLE_OLLAMA_API, etc).
+# For full stack orchestration, use the project root start.sh instead.
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "$SCRIPT_DIR" || exit
@@ -87,5 +90,12 @@ if [ -f "../../venv/bin/activate" ]; then
 else
     PYTHON_CMD=$(command -v python3 || command -v python)
 fi
+
+# Default to Ollama Llama3 and disable OpenAI if not explicitly set
+: "${ENABLE_OLLAMA_API:=true}"
+: "${ENABLE_OPENAI_API:=false}"
+: "${OLLAMA_BASE_URL:=http://localhost:11434}"
+: "${OLLAMA_BASE_URLS:=${OLLAMA_BASE_URL}}"
+: "${DEFAULT_MODELS:=deepseek-r1:8b}"
 
 WEBUI_SECRET_KEY="$WEBUI_SECRET_KEY" exec "$PYTHON_CMD" -m uvicorn open_webui.main:app --host "$HOST" --port "$PORT" --forwarded-allow-ips '*' --workers "${UVICORN_WORKERS:-1}"
